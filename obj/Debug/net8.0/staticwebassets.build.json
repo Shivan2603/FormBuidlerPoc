@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nKUBT0XoSgmd2BM/SLqbXSCNJy53Dxav1diUxr77Y1Y=",
+  "Hash": "D8G/WXjfQKL4nWewry291RWqOoPzV4zdZhxAgk2j5Bo=",
   "Source": "FormBuilder",
   "BasePath": "_content/FormBuilder",
   "Mode": "Default",
@@ -10,17 +10,17 @@
     {
       "Name": "FormBuilder\\wwwroot",
       "Source": "FormBuilder",
-      "ContentRoot": "C:\\FormBuilder\\wwwroot\\",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
       "BasePath": "_content/FormBuilder",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "C:\\FormBuilder\\wwwroot\\formBuilder.html",
+      "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\formBuilder.html",
       "SourceId": "FormBuilder",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FormBuilder\\wwwroot\\",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
       "BasePath": "_content/FormBuilder",
       "RelativePath": "formBuilder.html",
       "AssetKind": "All",
@@ -36,10 +36,10 @@
       "OriginalItemSpec": "wwwroot\\formBuilder.html"
     },
     {
-      "Identity": "C:\\FormBuilder\\wwwroot\\formView.html",
+      "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\formView.html",
       "SourceId": "FormBuilder",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FormBuilder\\wwwroot\\",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
       "BasePath": "_content/FormBuilder",
       "RelativePath": "formView.html",
       "AssetKind": "All",
@@ -55,10 +55,10 @@
       "OriginalItemSpec": "wwwroot\\formView.html"
     },
     {
-      "Identity": "C:\\FormBuilder\\wwwroot\\index.html",
+      "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\index.html",
       "SourceId": "FormBuilder",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FormBuilder\\wwwroot\\",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
       "BasePath": "_content/FormBuilder",
       "RelativePath": "index.html",
       "AssetKind": "All",
@@ -74,29 +74,10 @@
       "OriginalItemSpec": "wwwroot\\index.html"
     },
     {
-      "Identity": "C:\\FormBuilder\\wwwroot\\savedForms.css",
+      "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\savedForms.html",
       "SourceId": "FormBuilder",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FormBuilder\\wwwroot\\",
-      "BasePath": "_content/FormBuilder",
-      "RelativePath": "savedForms.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\savedForms.css"
-    },
-    {
-      "Identity": "C:\\FormBuilder\\wwwroot\\savedForms.html",
-      "SourceId": "FormBuilder",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\FormBuilder\\wwwroot\\",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
       "BasePath": "_content/FormBuilder",
       "RelativePath": "savedForms.html",
       "AssetKind": "All",
@@ -112,10 +93,10 @@
       "OriginalItemSpec": "wwwroot\\savedForms.html"
     },
     {
-      "Identity": "C:\\FormBuilder\\wwwroot\\script.js",
+      "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\script.js",
       "SourceId": "FormBuilder",
       "SourceType": "Discovered",
-      "ContentRoot": "C:\\FormBuilder\\wwwroot\\",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
       "BasePath": "_content/FormBuilder",
       "RelativePath": "script.js",
       "AssetKind": "All",
@@ -129,25 +110,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\script.js"
-    },
-    {
-      "Identity": "C:\\FormBuilder\\wwwroot\\styles.css",
-      "SourceId": "FormBuilder",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\FormBuilder\\wwwroot\\",
-      "BasePath": "_content/FormBuilder",
-      "RelativePath": "styles.css",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\styles.css"
     }
   ]
 }

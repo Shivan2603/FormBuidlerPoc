@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\FormBuilder\\FormBuilder.csproj": {}
+    "C:\\ProjectFolder\\FormBuilder\\FormBuilder.csproj": {}
   },
   "projects": {
-    "C:\\FormBuilder\\FormBuilder.csproj": {
+    "C:\\ProjectFolder\\FormBuilder\\FormBuilder.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\FormBuilder\\FormBuilder.csproj",
+        "projectUniqueName": "C:\\ProjectFolder\\FormBuilder\\FormBuilder.csproj",
         "projectName": "FormBuilder",
-        "projectPath": "C:\\FormBuilder\\FormBuilder.csproj",
+        "projectPath": "C:\\ProjectFolder\\FormBuilder\\FormBuilder.csproj",
         "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
-        "outputPath": "C:\\FormBuilder\\obj\\",
+        "outputPath": "C:\\ProjectFolder\\FormBuilder\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

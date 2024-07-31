@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     initializeDraggableElements(); // Initialize draggable elements outside of the initializeFormEvents function
     initializeFormEvents(); // Initialize form events
+    loadFormForViewing();
     const urlParams = new URLSearchParams(window.location.search);
     const formIdToEdit = urlParams.get('id');
     if (formIdToEdit) {
@@ -14,6 +15,16 @@ function initializeDraggableElements() {
 
     formCanvas.addEventListener('dragover', dragOver);
     formCanvas.addEventListener('drop', drop);
+}
+async function viewForm(id) {
+    window.location.href = `formView.html?id=${id}`; // Redirect with form ID
+}
+// Helper function to disable elements in the form (for viewing only)
+function initializeFormEventsForViewing() {
+    // Disable all input elements in the form
+    document.querySelectorAll('input, textarea, select').forEach(element => {
+        element.disabled = true;
+    });
 }
 function initializeFormEvents() {
     const saveButton = document.getElementById('saveButton');
@@ -138,61 +149,103 @@ async function loadFormForViewing() {
         return;
     }
 
-    const response = await fetch(`/api/form/${formId}`);
-    if (response.ok) {
-        const submittedForm = await response.json();
-        const formData = JSON.parse(submittedForm.formData);
-
-        const formTitle = document.getElementById('formTitle');
-        const formDescription = document.getElementById('formDescription');
-        const formElements
-            = document.getElementById('formElements');
-        formTitle.textContent = submittedForm.title;
-        formDescription.textContent = submittedForm.description;
-
-        formData.forEach(elementData => {
-            const container = document.createElement('div');
-            container.classList.add('form-element-container');
-
-            const label = document.createElement('label');
-            label.textContent = elementData.label;
-            container.appendChild(label);
-
-            const element = renderFormElement(elementData);
-            if (element) {
-                container.appendChild(element);
-                formElements.appendChild(container);
-            }
-        });
-    } else {
-        console.error('Failed to load form:', response.status);
+    try {
+        const response = await fetch(`/api/form/${formId}`);
+        if (response.ok) {
+            const submittedForm = await response.json();
+            displayForm(submittedForm);
+        } else {
+            console.error('Failed to load form:', response.status);
+        }
+    } catch (error) {
+        console.error('Network error:', error);
     }
 }
 
+function displayForm(submittedForm) {
+    console.log("Submitted Form Data:", submittedForm);  // Log the whole form data
+    console.log("Form Elements:", submittedForm.elements); // Log the elements array 
+
+    const formTitle = document.getElementById('formTitle');
+    const formDescription = document.getElementById('formDescription');
+    const formElements
+        = document.getElementById('formElements');
+
+    formTitle.textContent = submittedForm.title || "Untitled Form";
+    formDescription.textContent = submittedForm.description || "";
+
+    let elementsToDisplay = submittedForm.elements; // Default assumption
+
+    // Check if the elements are inside formData and are a string
+    if (submittedForm.formData && typeof submittedForm.formData === 'string') {
+        try {
+            elementsToDisplay = JSON.parse(submittedForm.formData); // Try to parse formData as JSON
+        } catch (error) {
+            console.error("Error parsing formData:", error);
+            return; // Exit the function if parsing fails
+        }
+    }
+
+    if (!Array.isArray(elementsToDisplay)) {
+        console.error('Form data is not in the expected format:', elementsToDisplay);
+        return;
+    }
+
+    elementsToDisplay.forEach(elementData => {
+        const container = renderFormElement(elementData);
+        if (container) {
+            formElements.appendChild(container);
+        }
+    });
+}
 function renderFormElement(elementData) {
     const type = elementData.type;
     let element;
+    container.classList.add('form-element-container');
 
     switch (type) {
         case 'text':
         case 'email':
         case 'number':
         case 'date':
-        case 'time':
         case 'url':
+        case 'time':
         case 'color':
+        case 'radio':
+        case 'checkbox':
             element = document.createElement('input');
             element.type = type;
-            element.value = elementData.value || '';
-            element.placeholder = elementData.placeholder || '';
+            element.value = elementData.value;
+            element.placeholder = elementData.placeholder;
+
+            // Add validation attributes based on rules
+            if (elementData.validationRule) {
+                const [ruleType, ruleValue] = elementData.validationRule.split(':');
+                switch (ruleType) {
+                    case 'required':
+                        element.required = true;
+                        break;
+                    case 'minlength':
+                    case 'maxlength':
+                        element[ruleType] = ruleValue;
+                        break;
+                    case 'pattern':
+                        element.pattern = ruleValue;
+                        break;
+                }
+            }
             break;
         case 'textarea':
             element = document.createElement('textarea');
-            element.value = elementData.value || '';
-            element.placeholder = elementData.placeholder || '';
+            element.value = elementData.value;
+            element.placeholder = elementData.placeholder;
             break;
         case 'select':
             element = document.createElement('select');
+            if (!elementData.options || !Array.isArray(elementData.options)) {
+                console.error("Invalid options for select element:", elementData);
+                return null; // Return early to prevent errors
+            }
             elementData.options.forEach(optionText => {
                 const option = document.createElement('option');
                 option.value = optionText;
@@ -201,27 +254,55 @@ function renderFormElement(elementData) {
                 element.add(option);
             });
             break;
-        case 'checkbox':
         case 'radio':
+            const radioGroup = document.createElement('div');
+
+            if (!elementData.options || !Array.isArray(elementData.options)) {
+                console.error("Invalid options for radio element:", elementData);
+                return null;
+            }
+
+            elementData.options.forEach(optionText => {
+                const radio = document.createElement('input');
+                radio.type = 'radio';
+                radio.name = elementData.label; // Use label as group name
+                radio.value = optionText;
+                radio.checked = optionText === elementData.value;
+                radioGroup.appendChild(radio);
+
+                const label = document.createElement('label');
+                label.textContent = optionText;
+                radioGroup.appendChild(label);
+            });
+
+            return radioGroup;
+        case 'checkbox':
             element = document.createElement('input');
-            element.type = type;
-            element.name = elementData.name;
-            element.value = elementData.value;
+            element.type = 'checkbox';
             element.checked = elementData.checked;
-            // Create label for checkbox/radio button
-            const optionLabel = document.createElement('label');
-            optionLabel.textContent = elementData.label;
-            optionLabel.setAttribute('for', element.id);
-            formElements.appendChild(optionLabel); // Append the label
             break;
         default:
             console.error(`Unsupported element type: ${type}`);
             return null;
     }
 
-    element.disabled = true; // Disable the element for viewing only
-    element.classList.add('form-element');
-    return element;
+    element.disabled = true;
+    const container = document.createElement('div');
+    container.classList.add('form-element-container');
+
+    const label = document.createElement('label');
+    label.textContent = elementData.label;
+    container.appendChild(label);
+    container.appendChild(label);
+    const input = document.createElement('input');
+    input.type = elementData.type;
+    input.name = elementData.name;
+    input.value = elementData.value;
+    input.disabled = true; // Disable for viewing
+
+    container.appendChild(input);
+
+    return container;
 }
 
 

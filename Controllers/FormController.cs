@@ -28,18 +28,16 @@ namespace FormBuilderApp.Controllers
             return await _context.SubmittedForms.ToListAsync();
         }
 
+        // GET: api/form/{id} (Get a specific form)
         [HttpGet("{id}")]
         public async Task<ActionResult<SubmittedForm>> GetForm(int id)
         {
-            var submittedForm = await _context.SubmittedForms.FindAsync(id);
+            var submittedForm = await _context.SubmittedForms.Include(f => f.Elements).FirstOrDefaultAsync(f => f.Id == id); // Include Elements
 
             if (submittedForm == null)
                 return NotFound();
 
-            // Deserialize the FormData back into SubmittedForm object
-            var deserializedForm = JsonSerializer.Deserialize<SubmittedForm>(submittedForm.FormData);
-
-            return deserializedForm;
+            return submittedForm; // Return the SubmittedForm object with Elements
         }
 
 
