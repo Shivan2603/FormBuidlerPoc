@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Builder</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Form Elements</h2>
+            <div class="draggable" draggable="true" data-type="text">Text Field</div>
+            <div class="draggable" draggable="true" data-type="textarea">Text Area</div>
+            <div class="draggable" draggable="true" data-type="email">Email Field</div>
+            <div class="draggable" draggable="true" data-type="number">Number Field</div>
+            <div class="draggable" draggable="true" data-type="date">Date Picker</div>
+            <div class="draggable" draggable="true" data-type="checkbox">Checkbox</div>
+            <div class="draggable" draggable="true" data-type="radio">Radio Button</div>
+            <div class="draggable" draggable="true" data-type="file">File Upload</div>
+            <div class="draggable" draggable="true" data-type="select">Dropdown</div>
+            <!--<div class="draggable" draggable="true" data-type="tel">Phone Number</div>-->
+            <div class="draggable" draggable="true" data-type="url">Website/URL</div>
+            <div class="draggable" draggable="true" data-type="range">Range Slider</div>
+        </aside>
+        <main class="form-canvas" id="formCanvas">
+            <h2>Form Preview</h2>
+        </main>
+        <div class="button-container">
+            <button id="saveButton">Save Form</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

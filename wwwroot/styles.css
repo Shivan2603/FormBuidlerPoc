@@ -1,0 +1,286 @@
+/* General Styles */
+body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+}
+
+/* Home Container Styles */
+.home-container {
+      text-align: center;
+      margin-top: 50px;
+}
+
+.logo {
+      width: 150px; /* Adjust the size as needed */
+}
+
+button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #007bff; /* Button color */
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+}
+
+    button:hover {
+          background-color: #0056b3; /* Darker shade on hover */
+    }
+
+/* Form Preview Container Styles */
+.form-preview-container {
+      margin-top: 20px;
+      padding: 20px;
+      background-color: #E6F4FF; /* Light blue background */
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 3D effect */
+}
+
+/* Form Element Container Styles */
+.form-element-container {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+}
+
+.form-preview-container label {
+      margin-right: 10px;
+}
+
+/* Container Styles */
+.container {
+      display: flex;
+      height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      width: 200px;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+}
+
+    .sidebar h2 {
+          margin-top: 0;
+    }
+
+.draggable {
+      background-color: #0056b3;
+      padding: 10px;
+      margin: 10px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+}
+
+    .draggable:hover {
+          background-color: #004494;
+    }
+
+/* Form Canvas Styles */
+.form-canvas {
+      flex-grow: 1;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border-left: 1px solid #ddd;
+      overflow-y: auto;
+}
+
+/* Form Element Styles */
+.form-element {
+      margin-right: 10px;
+      flex-grow: 1;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #BBF7A9; /* Light green background */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: box-shadow 0.3s ease;
+}
+
+    .form-element:focus {
+          outline: none;
+          box-shadow: 0 6px 8px rgba(0, 128, 0, 0.5);
+    }
+
+/* Button Container Styles */
+.button-container {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: auto;
+}
+
+/* Icon Button Styles */
+.icon-button {
+      background: #BBF7A9;
+      border: none;
+      cursor: pointer;
+      font-size: 20px;
+      margin-left: 10px;
+      color: #333;
+      transition: all 0.3s ease;
+      padding: 5px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+    .icon-button:hover {
+          background-color: #A3D6A9;
+          box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+          transform: translateY(-2px);
+    }
+
+    .icon-button.edit {
+          color: #007bff;
+    }
+
+    .icon-button.delete {
+          color: #dc3545;
+    }
+
+/* Save Button Styles */
+#saveButton {
+      margin-top: auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease;
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+}
+
+    #saveButton:hover {
+          background-color: #218838;
+    }
+
+/* Checkbox Styles */
+.checkbox-element {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #BBF7A9;
+      border-radius: 4px;
+      outline: none;
+      margin-right: 8px;
+      cursor: pointer;
+      position: relative;
+      background-color: #f4f4f4;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 4px #BBF7A9;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .checkbox-element:checked {
+          background-color: #BBF7A9;
+          box-shadow: inset 0 0 0 4px #f4f4f4, 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+        .checkbox-element:checked::after {
+              content: '';
+              position: absolute;
+              left: 7px;
+              top: 3px;
+              width: 6px;
+              height: 12px;
+              border: solid #333;
+              border-width: 0 2px 2px 0;
+              transform: rotate(45deg);
+        }
+
+/* Radio Button Styles */
+.radio-element {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      width: 24px;
+      height: 24px;
+      border: 2px solid #BBF7A9;
+      border-radius: 50%;
+      outline: none;
+      margin-right: 8px;
+      cursor: pointer;
+      position: relative;
+      background-color: #f4f4f4;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 0 4px #BBF7A9;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .radio-element:checked {
+          background-color: #BBF7A9;
+          box-shadow: inset 0 0 0 4px #f4f4f4, 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+        .radio-element:checked::after {
+              content: '';
+              position: absolute;
+              left: 6px;
+              top: 6px;
+              width: 12px;
+              height: 12px;
+              border-radius: 50%;
+              background-color: #333;
+             
+        }
+
+/* Dropdown Styles */
+.form-element.dropdown {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 8px 32px 8px 12px;
+      font-size: 16px;
+      color: #333;
+      outline: none;
+      cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 24px;
+      transition: border-color 0.3s ease;
+}
+
+    .form-element.dropdown:hover {
+          border-color: #007bff;
+    }
+
+
+.icon-button {
+     width: 20px;
+       height: 20px;
+       background-color: white; /* White background */
+     border: none;
+     padding: 2px; /* Add some padding for visual clarity */
+     cursor: pointer;
+     border-radius: 3px; /* Optional for rounded corners */
+     box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for a 3D effect */
+}
+
+    .icon-button:hover {
+         background-color: #f0f0f0; /* Slightly darker on hover */
+         box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Increased shadow on hover */
+    }
+
+.icon-svg {
+     width: 100%;
+     height: 100%;
+     fill: currentColor;
+}

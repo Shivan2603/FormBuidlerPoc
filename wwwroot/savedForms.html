@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saved Forms</title>
+    <link rel="stylesheet" href="savedForms.css">
+</head>
+<body onload="fetchAndDisplayForms()">
+    <h2>Saved Forms</h2>
+    <div id="formListContainer">
+        <ul id="formList"></ul>
+    </div>
+
+    <script>
+        async function fetchAndDisplayForms() {
+            const response = await fetch('/api/form');
+            if (!response.ok) {
+                console.error('Failed to fetch forms:', response.status);
+                return;
+            }
+
+            const forms = await response.json();
+            const formList = document.getElementById('formList');
+
+            forms.forEach(form => {
+                const li = document.createElement('li');
+                li.classList.add('form-item'); // Added class for styling
+
+                const link = document.createElement('a');
+                link.href = 'javascript:void(0);';
+                link.textContent = form.title;
+                link.onclick = () => viewForm(form.id);
+                link.classList.add('view-form-button');
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('delete-button');
+                deleteButton.style.display = 'none'; // Hidden by default
+                deleteButton.onclick = (event) => {
+                    event.stopPropagation();
+                    if (confirm("Are you sure you want to delete this form?")) {
+                        deleteForm(form.id); // Call delete function only if confirmed
+                    }
+                };
+                li.appendChild(link);
+                li.appendChild(deleteButton);
+                li.onclick = () => showDeleteButton(deleteButton); // Show delete button on li click
+
+                formList.appendChild(li);
+            });
+        }
+
+        async function viewForm(id) {
+            const pdfResponse = await fetch(`/api/form/${id}/pdf`);
+            if (!pdfResponse.ok) {
+                console.error('Failed to fetch form PDF:', pdfResponse.status);
+                return;
+            }
+
+            const pdfBlob = await pdfResponse.blob();
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+
+            window.open(pdfUrl); // This will open the PDF in a new tab
+        }
+
+        function showDeleteButton(button) {
+            button.style.display = 'inline-block'; // Show the delete button
+            setTimeout(() => {
+                button.style.display = 'none'; // Hide the button after 2 seconds
+            }, 2000);
+        }
+
+        async function deleteForm(id) {
+            const response = await fetch(`/api/form/${id}`, {
+                method: 'DELETE',
+            });
+            if (response.ok) {
+                console.log('Form deleted successfully');
+                location.reload(); // Reload the page immediately after deletion
+            } else {
+                console.error('Failed to delete form:', response.status);
+            }
+        }
+
+    </script>
+</body>
+</html>

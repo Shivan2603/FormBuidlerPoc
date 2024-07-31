@@ -1,0 +1,49 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\FormBuilder\\wwwroot\\formBuilder.html",
+      "PackagePath": "staticwebassets\\formBuilder.html"
+    },
+    {
+      "Id": "C:\\FormBuilder\\wwwroot\\formView.html",
+      "PackagePath": "staticwebassets\\formView.html"
+    },
+    {
+      "Id": "C:\\FormBuilder\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\FormBuilder\\wwwroot\\savedForms.css",
+      "PackagePath": "staticwebassets\\savedForms.css"
+    },
+    {
+      "Id": "C:\\FormBuilder\\wwwroot\\savedForms.html",
+      "PackagePath": "staticwebassets\\savedForms.html"
+    },
+    {
+      "Id": "C:\\FormBuilder\\wwwroot\\script.js",
+      "PackagePath": "staticwebassets\\script.js"
+    },
+    {
+      "Id": "C:\\FormBuilder\\wwwroot\\styles.css",
+      "PackagePath": "staticwebassets\\styles.css"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.FormBuilder.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.FormBuilder.props",
+      "PackagePath": "build\\FormBuilder.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.FormBuilder.props",
+      "PackagePath": "buildMultiTargeting\\FormBuilder.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.FormBuilder.props",
+      "PackagePath": "buildTransitive\\FormBuilder.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -1,0 +1,132 @@
+﻿body {
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(to bottom, #3498db, #2980b9, #1a73e8); /* Ocean gradient */
+      color: #212121; /* Darker text for contrast */
+      margin: 0;
+}
+
+h2 {
+      position: sticky; /* Make header sticky */
+      top: 0; /* Position at the top */
+      background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+      z-index: 10; /* Ensure it stays above other content */
+      text-align: center;
+      margin: 0; /* Remove default margin */
+      padding: 20px 0; /* Add padding for spacing */
+      color: #34495e; /* Soft dark blue for header */
+      font-size: 2.5em;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      border-bottom: 2px solid #2980b9; /* Border for separation */
+}
+
+#formListContainer {
+      max-width: 800px;
+      margin: 20px auto; /* Add margin for spacing */
+      padding: 20px;
+      overflow-y: auto;
+      border: 1px solid #b0bec5; /* Subtle border */
+      border-radius: 12px;
+      background-color: rgba(255, 255, 255, 0.95); /* Slightly more opaque */
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2); /* Soft shadow for depth */
+}
+
+#formList {
+      display: grid; /* Use grid layout for two columns */
+      grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+      gap: 15px; /* Space between items */
+      list-style-type: none; /* Remove default list styling */
+      padding: 0;
+      margin: 0;
+}
+
+   #formList li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        padding: 15px;
+        background-color: #C0C6CC; /* Updated inner background color to a darker shade */
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        transition: transform 0.3s, background-color 0.3s;
+      
+}
+
+     #formList li:hover {
+          transform: translateY(-3px); /* Slight lift effect on hover */
+          background-color: rgba(192, 198, 204, 0.9); /* Slightly darker on hover */
+        
+}
+
+/* Style for the link inside the list item */
+.view-form-button {
+      background-color: #3498db; /* Soft blue button color */
+      color: black; /* Change text color to black */
+      font-weight: bold; /* Make text bold */
+      text-decoration: none; /* Remove underline */
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s;
+}
+
+   .view-form-button:hover {
+        background-color: #2980b9; /* Darker blue on hover */
+        transform: scale(1.05);
+      
+}
+
+.view-form-button,
+.delete-form-button {
+      background-color: #3498db; /* Soft blue button color */
+      color: white;
+      padding: 8px 16px; /* Adjust button padding for consistency */
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s;
+      margin-right: 10px; /* Space between buttons */
+}
+
+    .view-form-button:hover,
+    .delete-form-button:hover {
+          background-color: #2980b9; /* Darker blue on hover */
+          transform: scale(1.05);
+    }
+
+.delete-form-button {
+      background-color: #e74c3c; /* Red color for delete button */
+}
+
+    .delete-form-button:hover {
+          background-color: #c0392b; /* Darker red on hover */
+    }
+
+.silver-box {
+      background-color: silver; /* Silver color */
+      padding: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 5px;
+      transition: background-color 0.3s ease;
+}
+
+    .silver-box:hover {
+          background-color: #d3d3d3; /* Slightly darker on hover */
+    }
+
+.delete-button {
+      background-color: #dc3545; /* Red color */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      margin-left: 10px; /* Space between box and button */
+}
+
+    .delete-button:hover {
+          background-color: #c82333; /* Darker red on hover */
+    }
