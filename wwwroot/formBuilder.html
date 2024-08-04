@@ -7,7 +7,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
     <style>
-        /* General Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -15,14 +14,13 @@
             background-color: #f4f4f4;
         }
 
-        /* Home Container Styles */
         .home-container {
             text-align: center;
             margin-top: 50px;
         }
 
         .logo {
-            width: 150px; /* Adjust the size as needed */
+            width: 150px; 
         }
 
         button {
@@ -31,26 +29,24 @@
             margin: 10px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff; /* Button color */
+            background-color: #007bff;
             color: white;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
             button:hover {
-                background-color: #0056b3; /* Darker shade on hover */
+                background-color: #0056b3;
             }
 
-        /* Form Preview Container Styles */
         .form-preview-container {
             margin-top: 20px;
             padding: 20px;
-            background-color: #E6F4FF; /* Light blue background */
+            background-color: #E6F4FF;
             border-radius: 5px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 3D effect */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
         }
 
-        /* Form Element Container Styles */
         .form-element-container {
             display: flex;
             align-items: center;
@@ -61,13 +57,11 @@
             margin-right: 10px;
         }
 
-        /* Container Styles */
         .container {
             display: flex;
             height: 100vh;
         }
 
-        /* Sidebar Styles */
         .sidebar {
             background-color: #007bff;
             color: white;
@@ -95,7 +89,6 @@
                 background-color: #004494;
             }
 
-        /* Form Canvas Styles */
         .form-canvas {
             flex-grow: 1;
             padding: 20px;
@@ -104,14 +97,13 @@
             overflow-y: auto;
         }
 
-        /* Form Element Styles */
         .form-element {
             margin-right: 10px;
             flex-grow: 1;
             padding: 10px;
             border: none;
             border-radius: 5px;
-            background-color: #BBF7A9; /* Light green background */
+            background-color: #BBF7A9;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: box-shadow 0.3s ease;
         }
@@ -121,14 +113,12 @@
                 box-shadow: 0 6px 8px rgba(0, 128, 0, 0.5);
             }
 
-        /* Button Container Styles */
         .button-container {
             display: flex;
             justify-content: flex-end;
             margin-top: auto;
         }
 
-        /* Icon Button Styles */
         .icon-button {
             background: #BBF7A9;
             border: none;
@@ -160,7 +150,6 @@
                 color: #dc3545;
             }
 
-        /* Save Button Styles */
         #saveButton {
             margin-top: auto;
             padding: 10px 20px;
@@ -181,7 +170,6 @@
                 background-color: #218838;
             }
 
-        /* Checkbox Styles */
         .checkbox-element {
             appearance: none;
             -webkit-appearance: none;
@@ -216,7 +204,6 @@
                     transform: rotate(45deg);
                 }
 
-        /* Radio Button Styles */
         .radio-element {
             appearance: none;
             -webkit-appearance: none;
@@ -250,7 +237,6 @@
                     background-color: #333;
                 }
 
-        /* Dropdown Styles */
         .form-element.dropdown {
             appearance: none;
             -webkit-appearance: none;
@@ -277,17 +263,17 @@
         .icon-button {
             width: 20px;
             height: 20px;
-            background-color: white; /* White background */
+            background-color: white; 
             border: none;
-            padding: 2px; /* Add some padding for visual clarity */
+            padding: 2px;
             cursor: pointer;
-            border-radius: 3px; /* Optional for rounded corners */
-            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Subtle shadow for a 3D effect */
+            border-radius: 3px;
+            box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
 
             .icon-button:hover {
-                background-color: #f0f0f0; /* Slightly darker on hover */
-                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Increased shadow on hover */
+                background-color: #f0f0f0;
+                box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
             }
 
         .icon-svg {
@@ -303,16 +289,17 @@
         <aside class="sidebar">
             <h2>Form Elements</h2>
             <div class="draggable" draggable="true" data-type="text">Text Field</div>
-            <div class="draggable" draggable="true" data-type="textarea">Text Area</div>
             <div class="draggable" draggable="true" data-type="email">Email Field</div>
             <div class="draggable" draggable="true" data-type="number">Number Field</div>
             <div class="draggable" draggable="true" data-type="date">Date Picker</div>
-            <div class="draggable" draggable="true" data-type="checkbox">Checkbox</div>
-            <div class="draggable" draggable="true" data-type="radio">Radio Button</div>
             <div class="draggable" draggable="true" data-type="file">File Upload</div>
             <div class="draggable" draggable="true" data-type="select">Dropdown</div>
             <div class="draggable" draggable="true" data-type="url">Website/URL</div>
             <div class="draggable" draggable="true" data-type="range">Range Slider</div>
+            <div class="draggable" draggable="true" data-type="textarea">Text Area</div>
+            <!-- <div class="draggable" draggable="true" data-type="checkbox">Checkbox</div>
+            <div class="draggable" draggable="true" data-type="radio">Radio Button</div> -->
+
         </aside>
         <main class="form-canvas" id="formCanvas">
             <h2>Form Preview</h2>

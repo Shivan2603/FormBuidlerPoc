@@ -40,25 +40,10 @@ public class Startup
             app.UseHsts();
         }
 
-        app.UseStaticFiles(); // Serve other static files from wwwroot first
-
-        app.Use(async (context, next) =>
-        {
-            if (context.Request.Path == "/index.html") // Check if it's index.html
-            {
-                var fileProvider = new PhysicalFileProvider(@"C:\ProjectFolder\FormBuilder");
-                var fileInfo = fileProvider.GetFileInfo("index.html");
-                if (fileInfo.Exists)
-                {
-                    await context.Response.SendFileAsync(fileInfo.PhysicalPath);
-                    return;
-                }
-            }
-
-            await next(); // If not index.html, pass to next middleware
-        });
 
         app.UseHttpsRedirection();
+
+        app.UseStaticFiles(); // Serve other static files from wwwroot first
 
         app.UseRouting();
 

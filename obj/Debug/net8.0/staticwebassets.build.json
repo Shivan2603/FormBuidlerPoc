@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "D8G/WXjfQKL4nWewry291RWqOoPzV4zdZhxAgk2j5Bo=",
+  "Hash": "BdERJm48hjys+ML0vpzQZP9FZeNJEg8j8BUqwFmUIs4=",
   "Source": "FormBuilder",
   "BasePath": "_content/FormBuilder",
   "Mode": "Default",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\A.png",
+      "SourceId": "FormBuilder",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
+      "BasePath": "_content/FormBuilder",
+      "RelativePath": "A.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\A.png"
+    },
     {
       "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\formBuilder.html",
       "SourceId": "FormBuilder",
@@ -72,6 +91,44 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\logo.jpeg",
+      "SourceId": "FormBuilder",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
+      "BasePath": "_content/FormBuilder",
+      "RelativePath": "logo.jpeg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\logo.jpeg"
+    },
+    {
+      "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\logo.png",
+      "SourceId": "FormBuilder",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\",
+      "BasePath": "_content/FormBuilder",
+      "RelativePath": "logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\logo.png"
     },
     {
       "Identity": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\savedForms.html",

@@ -21,14 +21,12 @@ namespace FormBuilderApp.Controllers
             _context = context;
         }
 
-        // GET: api/form (Get all forms)
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SubmittedForm>>> GetForms()
         {
             return await _context.SubmittedForms.ToListAsync();
         }
 
-        // GET: api/form/{id} (Get a specific form)
         [HttpGet("{id}")]
         public async Task<ActionResult<SubmittedForm>> GetForm(int id)
         {
@@ -37,7 +35,7 @@ namespace FormBuilderApp.Controllers
             if (submittedForm == null)
                 return NotFound();
 
-            return submittedForm; // Return the SubmittedForm object with Elements
+            return submittedForm; 
         }
 
 
@@ -55,7 +53,6 @@ namespace FormBuilderApp.Controllers
 
 
 
-        // PUT: api/form/{id} (Update an existing form)
         [HttpPut("{id}")]
         public async Task<IActionResult> PutForm(int id, SubmittedForm submittedForm)
         {
@@ -68,7 +65,6 @@ namespace FormBuilderApp.Controllers
             return NoContent();
         }
 
-        // DELETE: api/form/{id} (Delete a form)
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteForm(int id)
         {

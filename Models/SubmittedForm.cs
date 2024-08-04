@@ -20,9 +20,9 @@ namespace FormBuilderApp.Models
         public string Description { get; set; }
         public DateTime SubmissionDate { get; set; }
 
-        [JsonIgnore] // Exclude this from JSON serialization to avoid circular references
+        [JsonIgnore] 
         public List<FormElement> Elements { get; set; } = new List<FormElement>();
 
-        public string FormData { get; set; } // Store the entire form as JSON
+        public string FormData { get; set; }
     }
 }

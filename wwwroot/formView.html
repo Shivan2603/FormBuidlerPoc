@@ -9,7 +9,6 @@
             padding: 0;
             background-color: #f4f4f4;
         }
-
         .form-view-container {
             max-width: 600px;
             margin: 20px auto;
@@ -18,27 +17,25 @@
             border-radius: 8px;
             background-color: white;
         }
-
         .form-element-container {
             margin-bottom: 15px;
         }
-
-            .form-element-container label {
-                display: block;
-                margin-bottom: 5px;
-            }
-
-            .form-element-container input,
-            .form-element-container textarea,
-            .form-element-container select {
-                width: 100%;
-                padding: 8px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                box-sizing: border-box;
-            }
+        .form-element-container label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-element-container input,
+        .form-element-container textarea,
+        .form-element-container select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: #e9ecef;
+            pointer-events: none;
+        }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
 <body>
     <div class="form-view-container">
@@ -47,6 +44,122 @@
         <div id="formElements"></div>
     </div>
 
-    <script src="script.js" defer></script>
+    <script>
+        async function fetchAndDisplayForm() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const formId = urlParams.get('id');
+
+    try {
+        const response = await fetch(`/api/form/${formId}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch form data');
+        }
+        const formData = await response.json();
+        displayForm(formData);
+    } catch (error) {
+        console.error(error);
+        alert('Error loading form data');
+    }
+}
+
+function displayForm(formData) {
+    const formElementsContainer = document.getElementById('formElements');
+    formElementsContainer.innerHTML = '';
+
+    const formElements = JSON.parse(formData.formData);
+
+    formElements.forEach(elementData => {
+        const container = document.createElement('div');
+        container.classList.add('form-element-container');
+
+        const label = document.createElement('label');
+        label.textContent = elementData.label;
+
+        let input;
+        switch (elementData.type) {
+            case 'input':
+                input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = elementData.placeholder;
+                input.value = elementData.value;
+                break;
+            case 'email':
+                input = document.createElement('input');
+                input.type = 'email';
+                input.placeholder = elementData.placeholder;
+                input.value = elementData.value;
+                break;
+            case 'number':
+                input = document.createElement('input');
+                input.type = 'number';
+                input.placeholder = elementData.placeholder;
+                input.value = elementData.value;
+                break;
+            case 'date':
+                input = document.createElement('input');
+                input.type = 'date';
+                input.value = elementData.value;
+                break;
+            case 'url':
+                input = document.createElement('input');
+                input.type = 'url';
+                input.placeholder = elementData.placeholder;
+                input.value = elementData.value;
+                break;
+            case 'textarea':
+                input = document.createElement('textarea');
+                input.placeholder = elementData.placeholder;
+                input.value = elementData.value;
+                break;
+            case 'select':
+                input = document.createElement('select');
+                elementData.options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    input.add(optionElement);
+                });
+                input.value = elementData.value;
+                break;
+            case 'checkbox':
+                input = document.createElement('input');
+                input.type = 'checkbox';
+                input.checked = elementData.checked;
+                break;
+            case 'radio':
+                input = document.createElement('input');
+                input.type = 'radio';
+                input.name = elementData.name;
+                input.checked = elementData.checked;
+                break;
+            case 'color':
+                input = document.createElement('input');
+                input.type = 'color';
+                input.value = elementData.value;
+                break;
+            case 'file':
+                input = document.createElement('input');
+                input.type = 'file';
+                break;
+            case 'range':
+                input = document.createElement('input');
+                input.type = 'range';
+                input.value = elementData.value;
+                break;
+            default:
+                console.error(`Unsupported element type: ${elementData.type}`);
+                return;
+        }
+
+        input.classList.add('form-element');
+        input.disabled = true; 
+
+        container.appendChild(label);
+        container.appendChild(input);
+        formElementsContainer.appendChild(container);
+    });
+}
+        window.onload = fetchAndDisplayForm;
+    </script>
 </body>
 </html>

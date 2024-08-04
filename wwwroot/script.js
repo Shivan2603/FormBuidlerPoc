@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
-    initializeDraggableElements(); // Initialize draggable elements outside of the initializeFormEvents function
-    initializeFormEvents(); // Initialize form events
+    initializeDraggableElements(); 
+    initializeFormEvents();
     loadFormForViewing();
     const urlParams = new URLSearchParams(window.location.search);
     const formIdToEdit = urlParams.get('id');
@@ -17,11 +17,9 @@ function initializeDraggableElements() {
     formCanvas.addEventListener('drop', drop);
 }
 async function viewForm(id) {
-    window.location.href = `formView.html?id=${id}`; // Redirect with form ID
+    window.location.href = `formView.html?id=${id}`; 
 }
-// Helper function to disable elements in the form (for viewing only)
 function initializeFormEventsForViewing() {
-    // Disable all input elements in the form
     document.querySelectorAll('input, textarea, select').forEach(element => {
         element.disabled = true;
     });
@@ -32,7 +30,6 @@ function initializeFormEvents() {
         saveButton.addEventListener('click', async () => {
             const formElements = [];
 
-            //Gather form elements and their data
             formCanvas.querySelectorAll('.form-element-container, .group-container').forEach(container => {
                 const elements = container.querySelectorAll('.form-element');
                 elements.forEach(element => {
@@ -54,10 +51,11 @@ function initializeFormEvents() {
                         });
                     }
 
-                    // Get values for radio buttons and checkboxes
-                    let value = element.value;
-                    if (type === 'radio' || type === 'checkbox') {
-                        value = element.checked ? element.value : null;
+                    let value;
+                    switch (type) {
+                        case 'checkbox': value = element.checked; break;
+                        case 'radio': value = element.checked ? element.value : null; break;
+                        default: value = element.value; break;
                     }
 
                     formElements.push({
@@ -71,23 +69,96 @@ function initializeFormEvents() {
                     });
                 });
             });
-            //Prompts for Title and Description before Save (updated)
+
             const formTitle = prompt("Enter form title:", document.getElementById('formTitleInput')?.value || "Untitled Form") || "Untitled Form"; // Prompt for title with default value
             const formDescription = prompt("Enter form description:", document.getElementById('formDescriptionInput')?.value || "") || ""; // Prompt for description with default value
 
             const formData = {
-                title: formTitle, // Use prompted title
-                description: formDescription, // Use prompted description
+                title: formTitle,
+                description: formDescription,
                 formData: JSON.stringify(formElements)
             };
 
             const urlParams = new URLSearchParams(window.location.search);
             const formId = urlParams.get('id');
+            console.log("Form Data Before Saving:", formData); 
 
             await saveForm(formData, formId);
         });
     }
 }
+function initializeFormEvents() {
+    const saveButton = document.getElementById('saveButton');
+    if (saveButton) {
+        saveButton.addEventListener('click', async () => {
+            const formElements = [];
+
+            console.log('Form elements containers:', formCanvas.querySelectorAll('.form-element-container, .group-container'));
+
+            formCanvas.querySelectorAll('.form-element-container, .group-container').forEach(container => {
+                const elements = container.querySelectorAll('.form-element');
+                console.log('Elements in container:', elements);
+
+                elements.forEach(element => {
+                    let labelText = container.querySelector('label')?.textContent || "Untitled Element";
+                    let type = element.tagName.toLowerCase();
+
+                    if (container.classList.contains('group-container')) {
+                        const groupName = container.querySelector('h3').textContent;
+                        labelText = `${groupName} ${element.parentElement.querySelector('label')?.textContent || ''}`;
+                        if (type === 'input') {
+                            type = element.type;
+                        }
+                    }
+
+                    const options = [];
+                    if (type === 'select') {
+                        element.querySelectorAll('option').forEach(option => {
+                            options.push(option.text);
+                        });
+                    }
+
+                    let value;
+                    switch (type) {
+                        case 'checkbox': value = element.checked; break;
+                        case 'radio': value = element.checked ? element.value : null; break;
+                        default: value = element.value; break;
+                    }
+
+                    console.log(`Processing element: ${labelText} (${type}) with value: ${value}`);
+
+                    formElements.push({
+                        type,
+                        label: labelText,
+                        name: element.name || '',
+                        placeholder: element.placeholder || '',
+                        options: options,
+                        checked: element.checked || false,
+                        value: value || '',
+                    });
+                });
+            });
+
+            console.log('Form elements array:', formElements);
+
+            const formTitle = prompt("Enter form title:", document.getElementById('formTitleInput')?.value || "Untitled Form") || "Untitled Form"; // Prompt for title with default value
+            const formDescription = prompt("Enter form description:", document.getElementById('formDescriptionInput')?.value || "") || ""; // Prompt for description with default value
+
+            const formData = {
+                title: formTitle,
+                description: formDescription,
+                formData: JSON.stringify(formElements)
+            };
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const formId = urlParams.get('id');
+            console.log("Form Data Before Saving:", formData);
+
+            await saveForm(formData, formId);
+        });
+    }
+}
+
 
 document.querySelectorAll('.draggable').forEach(item => {
     item.addEventListener('dragstart', dragStart);
@@ -139,7 +210,6 @@ function drop(e) {
         formCanvas.appendChild(container);
     }
 }
-// Function to load form data into the form builder (used in formEdit.html)
 async function loadFormForViewing() {
     const urlParams = new URLSearchParams(window.location.search);
     const formId = urlParams.get('id');
@@ -163,8 +233,8 @@ async function loadFormForViewing() {
 }
 
 function displayForm(submittedForm) {
-    console.log("Submitted Form Data:", submittedForm);  // Log the whole form data
-    console.log("Form Elements:", submittedForm.elements); // Log the elements array 
+    console.log("Submitted Form Data:", submittedForm);  
+    console.log("Form Elements:", submittedForm.elements); 
 
     const formTitle = document.getElementById('formTitle');
     const formDescription = document.getElementById('formDescription');
@@ -174,15 +244,14 @@ function displayForm(submittedForm) {
     formTitle.textContent = submittedForm.title || "Untitled Form";
     formDescription.textContent = submittedForm.description || "";
 
-    let elementsToDisplay = submittedForm.elements; // Default assumption
+    let elementsToDisplay = submittedForm.elements;
 
-    // Check if the elements are inside formData and are a string
     if (submittedForm.formData && typeof submittedForm.formData === 'string') {
         try {
-            elementsToDisplay = JSON.parse(submittedForm.formData); // Try to parse formData as JSON
+            elementsToDisplay = JSON.parse(submittedForm.formData); 
         } catch (error) {
             console.error("Error parsing formData:", error);
-            return; // Exit the function if parsing fails
+            return;
         }
     }
 
@@ -218,7 +287,6 @@ function renderFormElement(elementData) {
             element.value = elementData.value;
             element.placeholder = elementData.placeholder;
 
-            // Add validation attributes based on rules
             if (elementData.validationRule) {
                 const [ruleType, ruleValue] = elementData.validationRule.split(':');
                 switch (ruleType) {
@@ -244,7 +312,7 @@ function renderFormElement(elementData) {
             element = document.createElement('select');
             if (!elementData.options || !Array.isArray(elementData.options)) {
                 console.error("Invalid options for select element:", elementData);
-                return null; // Return early to prevent errors
+                return null; 
             }
             elementData.options.forEach(optionText => {
                 const option = document.createElement('option');
@@ -265,7 +333,7 @@ function renderFormElement(elementData) {
             elementData.options.forEach(optionText => {
                 const radio = document.createElement('input');
                 radio.type = 'radio';
-                radio.name = elementData.label; // Use label as group name
+                radio.name = elementData.label;
                 radio.value = optionText;
                 radio.checked = optionText === elementData.value;
                 radioGroup.appendChild(radio);
@@ -298,7 +366,7 @@ function renderFormElement(elementData) {
     input.type = elementData.type;
     input.name = elementData.name;
     input.value = elementData.value;
-    input.disabled = true; // Disable for viewing
+    input.disabled = true;
 
     container.appendChild(input);
 
@@ -310,69 +378,59 @@ function addDropdown(labelText) {
     const groupContainer = document.createElement('div');
     groupContainer.classList.add('group-container');
 
-    // Create a header for the group
     const groupHeader = document.createElement('h3');
-    groupHeader.textContent = labelText; // Use labelText as group name
+    groupHeader.textContent = labelText;
 
-    // Create a button container for edit and delete buttons
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
 
-    // Edit Button for Group
     const editGroupButton = document.createElement('button');
-    editGroupButton.textContent = '✏️'; // Edit icon
-    editGroupButton.classList.add('icon-button', 'edit'); // Add specific class for edit
+    editGroupButton.textContent = '✏️'; 
+    editGroupButton.classList.add('icon-button', 'edit'); 
 
     editGroupButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the label click event
+        event.stopPropagation(); 
         const newGroupName = prompt("Edit group name:", groupHeader.textContent);
         if (newGroupName !== null) {
-            groupHeader.textContent = newGroupName; // Update group header
+            groupHeader.textContent = newGroupName;
         }
     });
 
-    // Delete Button for Group
     const deleteGroupButton = document.createElement('button');
-    deleteGroupButton.textContent = '🗑️'; // Delete icon
-    deleteGroupButton.classList.add('icon-button', 'delete'); // Add specific class for delete
+    deleteGroupButton.textContent = '🗑️';
+    deleteGroupButton.classList.add('icon-button', 'delete');
 
     deleteGroupButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the label click event
-        groupContainer.remove(); // Remove the entire group container
+        event.stopPropagation(); 
+        groupContainer.remove();
     });
 
-    // Append buttons to the button container
     buttonContainer.appendChild(editGroupButton);
     buttonContainer.appendChild(deleteGroupButton);
 
-    // Append group header and button container to the group container
     groupContainer.appendChild(groupHeader);
     groupContainer.appendChild(buttonContainer);
 
-    // Create the dropdown element
     const dropdown = document.createElement('select');
     dropdown.classList.add('form-element');
-    dropdown.name = labelText; // Set the name of the dropdown
+    dropdown.name = labelText; 
 
-    // Set a fixed width for the dropdown
-    dropdown.style.width = '200px'; // Set a fixed width for the dropdown
+    dropdown.style.width = '200px'; 
 
-    // Add options to the dropdown
     let optionCount = parseInt(prompt("How many options do you want to add to the dropdown?", "1"), 10);
-    if (isNaN(optionCount) || optionCount < 1) return; // Exit if invalid count is provided
+    if (isNaN(optionCount) || optionCount < 1) return; 
 
     for (let i = 0; i < optionCount; i++) {
         const optionText = prompt(`Enter text for option ${i + 1}:`, `Option ${i + 1}`);
         const option = document.createElement('option');
-        option.textContent = optionText || `Option ${i + 1}`; // Default text if none provided
+        option.textContent = optionText || `Option ${i + 1}`;
         dropdown.appendChild(option);
     }
 
     groupContainer.appendChild(groupHeader);
     groupContainer.appendChild(buttonContainer);
-    groupContainer.appendChild(dropdown); // Append the dropdown to the group container
+    groupContainer.appendChild(dropdown); 
 
-    // Append the group container to the form canvas
     formCanvas.appendChild(groupContainer);
 }
 
@@ -383,39 +441,34 @@ function addMultipleElements(type, groupName) {
     const groupHeader = document.createElement('h3');
     groupHeader.textContent = groupName;
 
-    // Create a button container for edit and delete buttons for the group
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
 
-    // Edit Button for Group
     const editGroupButton = document.createElement('button');
-    editGroupButton.textContent = '✏️'; // Edit icon
-    editGroupButton.classList.add('icon-button', 'edit'); // Add specific class for edit
+    editGroupButton.textContent = '✏️';   
+    editGroupButton.classList.add('icon-button', 'edit');
 
     editGroupButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the label click event
+        event.stopPropagation(); 
         const newGroupName = prompt("Edit group name:", groupHeader.textContent);
         if (newGroupName !== null) {
-            groupHeader.textContent = newGroupName; // Update group header
-            updateOptionLabels(groupContainer, newGroupName); // Update option labels to match the new group name
+            groupHeader.textContent = newGroupName;
+            updateOptionLabels(groupContainer, newGroupName);
         }
     });
 
-    // Delete Button for Group
     const deleteGroupButton = document.createElement('button');
-    deleteGroupButton.textContent = '🗑️'; // Delete icon
-    deleteGroupButton.classList.add('icon-button', 'delete'); // Add specific class for delete
+    deleteGroupButton.textContent = '🗑️'; 
+    deleteGroupButton.classList.add('icon-button', 'delete'); 
 
     deleteGroupButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent the label click event
-        groupContainer.remove(); // Remove the entire group container
+        event.stopPropagation(); 
+        groupContainer.remove(); 
     });
 
-    // Append buttons to the button container
     buttonContainer.appendChild(editGroupButton);
     buttonContainer.appendChild(deleteGroupButton);
 
-    // Append group header and button container to the group container
     groupContainer.appendChild(groupHeader);
     groupContainer.appendChild(buttonContainer);
 
@@ -429,13 +482,13 @@ function addMultipleElements(type, groupName) {
         const optionName = prompt(`Enter name for option ${i + 1}:`, `${groupName} ${i + 1}`);
 
         const label = document.createElement('label');
-        label.textContent = optionName || `${groupName} ${i + 1}`; // Use the custom name or the default
+        label.textContent = optionName || `${groupName} ${i + 1}`;
 
         const element = document.createElement('input');
         element.type = type;
         element.classList.add(type === 'checkbox' ? 'checkbox-element' : 'radio-element');
         element.name = groupName;
-        element.value = optionName; // Set the value to the optionName
+        element.value = optionName;
 
         container.appendChild(label);
         container.appendChild(element);
@@ -449,24 +502,23 @@ function addOptionElement(groupContainer, type, groupName, optionNumber) {
     const container = document.createElement('div');
     container.classList.add('form-element-container');
 
-    // Input for Option Name (with label and event listener)
     const optionNameInput = document.createElement('input');
     optionNameInput.type = 'text';
     optionNameInput.placeholder = `Enter name for option ${optionNumber}`;
 
     const label = document.createElement('label');
-    label.textContent = optionNameInput.value || `${groupName} ${optionNumber}`; // Default or user-entered name
+    label.textContent = optionNameInput.value || `${groupName} ${optionNumber}`;
 
     optionNameInput.addEventListener('input', () => {
-        label.textContent = optionNameInput.value || `${groupName} ${optionNumber}`; // Update label on name change
-        element.value = optionNameInput.value; // Update value for submission
+        label.textContent = optionNameInput.value || `${groupName} ${optionNumber}`;
+        element.value = optionNameInput.value; 
     });
 
     const element = document.createElement('input');
     element.type = type;
     element.classList.add(type === 'checkbox' ? 'checkbox-element' : 'radio-element');
     element.name = groupName;
-    element.value = optionNameInput.value || label.textContent; // Set initial value
+    element.value = optionNameInput.value || label.textContent;
 
     container.appendChild(optionNameInput);
     container.appendChild(label);
@@ -475,15 +527,12 @@ function addOptionElement(groupContainer, type, groupName, optionNumber) {
     addEditAndDeleteButtons(container, label, element);
 }
 
-// Helper function to update option labels
 function updateOptionLabels(groupContainer, newGroupName) {
     const labels = groupContainer.querySelectorAll('.form-element-container label');
     labels.forEach((label, index) => {
-        // Instead of taking value from input, just update with the new group name
         label.textContent = `${newGroupName} ${index + 1}`;
     });
 
-    // Update the name and value of the radio/checkbox inputs
     const elements = groupContainer.querySelectorAll('.form-element');
     elements.forEach((element, index) => {
         element.name = newGroupName;
@@ -516,13 +565,13 @@ function addElementToForm(type) {
         case 'checkbox':
             element = document.createElement('input');
             element.type = 'checkbox';
-            element.classList.add('checkbox-element'); // Add a class for checkboxes
-            element.id = `element-${Math.random().toString(36).substr(2, 9)}`; // Generate a unique ID
+            element.classList.add('checkbox-element');
+            element.id = `element-${Math.random().toString(36).substr(2, 9)}`;
             break;
         case 'radio':
             element = document.createElement('input');
             element.type = 'radio';
-            element.id = `element-${Math.random().toString(36).substr(2, 9)}`; // Generate a unique ID
+            element.id = `element-${Math.random().toString(36).substr(2, 9)}`;
             break;
         case 'select':
             element = document.createElement('select');
@@ -575,10 +624,7 @@ function addElementToForm(type) {
     return element;
 }
 
-// Function to add edit and delete buttons for labels
-// Function to add edit and delete buttons (refined)
 function addEditAndDeleteButtons(container, label, element) {
-    // Create a button container
     const buttonContainer = document.createElement('div');
     buttonContainer.classList.add('button-container');
 
@@ -591,10 +637,9 @@ function addEditAndDeleteButtons(container, label, element) {
    </svg>
   `;
 
-    // Check if we have a valid label to edit. Some elements might not have associated labels (e.g., groups)
     if (label) {
         editButton.addEventListener('click', (event) => {
-            event.stopPropagation(); // Prevent the event from bubbling up
+            event.stopPropagation();
 
             const newLabel = prompt("Edit label:", label.textContent);
             if (newLabel !== null) {
@@ -604,13 +649,10 @@ function addEditAndDeleteButtons(container, label, element) {
                 }
             }
             if (element.tagName === 'SELECT') {
-                // Dropdown (select)
                 editDropdownOptions(element);
             } else if (element.type === 'checkbox' || element.type === 'radio') {
-                // Checkbox or Radio Button
                 editGroupedOption(element);
             } else {
-                // Other elements (text, email, etc.)
                 const newLabel = prompt("Edit label:", label.textContent);
                 if (newLabel !== null) {
                     label.textContent = newLabel;
@@ -629,25 +671,21 @@ function addEditAndDeleteButtons(container, label, element) {
   </svg>
  `;
 
-    // Refined Delete Button Functionality
     deleteButton.addEventListener('click', (event) => {
-        event.stopPropagation(); // Prevent event from bubbling up
+        event.stopPropagation(); 
         if (!confirm("Are you sure you want to delete this element?")) {
-            return; // Don't delete if the user cancels
+            return;
         }
-        // Handle grouped elements
         if (element.classList.contains('radio-element') || element.classList.contains('checkbox-element')) {
             const groupContainer = container.closest('.group-container');
-            container.remove(); // Remove the single option container
+            container.remove();
             if (groupContainer && groupContainer.children.length === 2) {
-                // Only header and button container left
-                groupContainer.remove(); // Remove the whole group
+                groupContainer.remove();
             }
         } else {
-            container.remove(); // Remove the entire element container
+            container.remove();
         }
     });
-    // Append buttons only if they are valid
     if (editButton && deleteButton) {
         buttonContainer.appendChild(editButton);
         buttonContainer.appendChild(deleteButton);
@@ -657,7 +695,6 @@ function addEditAndDeleteButtons(container, label, element) {
     }
 }
 
-// Fetch existing forms from the API
 async function fetchForms() {
     const response = await fetch('/api/form');
     if (response.ok) {
@@ -670,9 +707,6 @@ async function fetchForms() {
     }
 }
 
-// Save the form to the API
-
-// Modify the saveForm function to handle both POST (new form) and PUT (update form)
 async function saveForm(formData, formId = null) {
     const method = formId ? 'PUT' : 'POST';
     const url = formId ? `/api/form/${formId}` : '/api/form';
@@ -685,32 +719,27 @@ async function saveForm(formData, formId = null) {
         });
 
         if (response.ok) {
-            const result = await response.json(); // Get JSON response for more info (if any)
+            const result = await response.json()
 
-            // Display success message
             alert(method === 'POST' ? 'Form saved successfully!' : 'Form updated successfully!');
 
-            // Update UI or redirect based on action
             if (method === 'POST') {
-                window.location.href = 'savedForms.html'; // Redirect to the list of saved forms
+                window.location.href = 'savedForms.html';
             } else {
-                // If updating, you might want to stay on the same page
-                // Or you could refresh the page to show the updated data
-                // window.location.reload(); 
+                
             }
         } else {
-            const error = await response.json(); // Try to get error message from API
-            const errorMessage = error.message || 'An error occurred while saving the form.'; // Fallback message
-            alert(errorMessage); // Show a specific error message
+            const error = await response.json();
+            const errorMessage = error.message || 'An error occurred while saving the form.';
+            alert(errorMessage); 
         }
 
     } catch (error) {
-        alert('A network error occurred. Please try again.'); // Catch network issues
+        alert('A network error occurred. Please try again.');
     }
 }
 
 
-// Handle save button click (updated)
 document.getElementById('saveButton').addEventListener('click', async () => {
     const formElements = [];
 
@@ -742,25 +771,23 @@ document.getElementById('saveButton').addEventListener('click', async () => {
     const formData = {
         title: "Your Form Title",
         description: "Your Form Description",
-        formData: JSON.stringify(formElements) // Stringify the elements array
+        formData: JSON.stringify(formElements) 
     };
     const urlParams = new URLSearchParams(window.location.search);
     const formId = urlParams.get('id');
     saveForm(formData);
 });
 
-// Handle submit button click
 document.getElementById('submitButton').addEventListener('click', () => {
     const formData = Array.from(formCanvas.children).filter(child => child.tagName === 'DIV').map(container => {
         const label = container.querySelector('label');
         const element = container.querySelector('.form-element');
         return {
             type: element.tagName.toLowerCase(),
-            value: element.value || (element.checked ? true : false) // Capture value for checkboxes
+            value: element.value || (element.checked ? true : false) 
         };
     });
     console.log('Form submitted with data:', formData);
-    // Here you can send the form data to your backend for processing
 });
 
 async function submitForm() {

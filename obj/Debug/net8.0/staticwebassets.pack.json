@@ -1,6 +1,10 @@
 {
   "Files": [
     {
+      "Id": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\A.png",
+      "PackagePath": "staticwebassets\\A.png"
+    },
+    {
       "Id": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\formBuilder.html",
       "PackagePath": "staticwebassets\\formBuilder.html"
     },
@@ -11,6 +15,14 @@
     {
       "Id": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\logo.jpeg",
+      "PackagePath": "staticwebassets\\logo.jpeg"
+    },
+    {
+      "Id": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\logo.png",
+      "PackagePath": "staticwebassets\\logo.png"
     },
     {
       "Id": "C:\\ProjectFolder\\FormBuilder\\wwwroot\\savedForms.html",
